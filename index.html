@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<!-- saved from url=(0043)file:///C:/Users/tomoo/Downloads/index.html -->
+<!-- saved from url=(0045)file:///C:/Users/tomoo/Downloads/index_2.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>仕入れ管理</title>
-<link href="./仕入れ管理ソフト_files/css2" rel="stylesheet">
-<script src="./仕入れ管理ソフト_files/xlsx.full.min.js.ダウンロード"></script>
+<link href="./index_files/css2" rel="stylesheet">
+<script src="./index_files/xlsx.full.min.js.ダウンロード"></script>
 <style>
 :root{
   --bg:#0e0f11;--bg2:#16181c;--bg3:#1e2128;--bg4:#252830;
@@ -228,7 +228,7 @@ input[type=number]{font-family:var(--mono)}
 <!-- 画像モーダル -->
 <div class="img-modal" id="img-modal" style="display:none" onclick="closeImgModal()">
   <span class="img-modal-close">✕</span>
-  <img id="img-modal-img" src="file:///C:/Users/tomoo/Downloads/index.html" onclick="event.stopPropagation()">
+  <img id="img-modal-img" src="file:///C:/Users/tomoo/Downloads/index_2.html" onclick="event.stopPropagation()">
 </div>
 
 <div class="layout">
@@ -239,8 +239,8 @@ input[type=number]{font-family:var(--mono)}
       <p>Purchase Manager</p>
     </div>
     <nav>
-      <div class="nav-item active" onclick="switchTab(&#39;products&#39;)" data-tab="products"><span class="nav-icon">🗂</span> 商品登録</div>
-      <div class="nav-item" onclick="switchTab(&#39;purchase&#39;)" data-tab="purchase"><span class="nav-icon">📋</span> 月別仕入れ</div>
+      <div class="nav-item" onclick="switchTab(&#39;products&#39;)" data-tab="products"><span class="nav-icon">🗂</span> 商品登録</div>
+      <div class="nav-item active" onclick="switchTab(&#39;purchase&#39;)" data-tab="purchase"><span class="nav-icon">📋</span> 月別仕入れ</div>
       <div class="nav-item" onclick="switchTab(&#39;export&#39;)" data-tab="export"><span class="nav-icon">📊</span> 集計・出力</div>
     </nav>
     <div class="sidebar-bottom">
@@ -250,13 +250,13 @@ input[type=number]{font-family:var(--mono)}
 
   <div class="main">
     <div class="topbar">
-      <span class="topbar-title" id="topbar-title">商品登録</span>
+      <span class="topbar-title" id="topbar-title">月別仕入れ計算</span>
       <span id="topbar-sync" style="font-size:12px;margin-left:auto"><span style="color:var(--green)">🟢 同期中</span></span>
     </div>
     <div class="content">
 
       <!-- 商品登録 -->
-      <div id="tab-products" class="panel active">
+      <div id="tab-products" class="panel">
         <div class="page-header"><h2>商品登録</h2><p>仕入れ計算で使用する商品を登録します</p></div>
         <div class="card">
           <div class="card-header"><span class="card-title">新規登録</span></div>
@@ -292,10 +292,21 @@ input[type=number]{font-family:var(--mono)}
       </div>
 
       <!-- 月別仕入れ -->
-      <div id="tab-purchase" class="panel">
+      <div id="tab-purchase" class="panel active">
         <div class="page-header"><h2>月別仕入れ計算</h2><p>月・回次・品の3階層で仕入れを管理します</p></div>
-        <div id="purchase-area"></div>
-        <div class="add-month-bar"><button class="btn primary" onclick="addMonth()">＋ 仕入れ月追加</button></div>
+        <div id="purchase-area"><div class="empty" style="padding:48px"><div class="empty-icon">📅</div>「＋ 仕入れ月追加」で月を追加してください</div></div>
+        <div class="add-month-bar">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center">
+            <select id="add-year" style="width:100px;padding:8px 10px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);font-size:13px"><option value="2024">2024年</option><option value="2025">2025年</option><option value="2026">2026年</option><option value="2027">2027年</option><option value="2028">2028年</option><option value="2029">2029年</option></select>
+            <select id="add-month" style="width:80px;padding:8px 10px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);font-size:13px">
+              <option value="1">1月</option><option value="2">2月</option><option value="3">3月</option>
+              <option value="4">4月</option><option value="5">5月</option><option value="6">6月</option>
+              <option value="7">7月</option><option value="8">8月</option><option value="9">9月</option>
+              <option value="10">10月</option><option value="11">11月</option><option value="12">12月</option>
+            </select>
+            <button class="btn primary" onclick="addMonth()">＋ 仕入れ月追加</button>
+          </div>
+        </div>
       </div>
 
       <!-- 集計・出力 -->
@@ -327,10 +338,10 @@ input[type=number]{font-family:var(--mono)}
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast">2025年3月を削除しました</div>
 <nav class="bottom-nav">
-  <div class="bottom-nav-item active" onclick="switchTab(&#39;products&#39;)" data-tab="products"><span class="bn-icon">🗂</span>商品登録</div>
-  <div class="bottom-nav-item" onclick="switchTab(&#39;purchase&#39;)" data-tab="purchase"><span class="bn-icon">📋</span>月別仕入れ</div>
+  <div class="bottom-nav-item" onclick="switchTab(&#39;products&#39;)" data-tab="products"><span class="bn-icon">🗂</span>商品登録</div>
+  <div class="bottom-nav-item active" onclick="switchTab(&#39;purchase&#39;)" data-tab="purchase"><span class="bn-icon">📋</span>月別仕入れ</div>
   <div class="bottom-nav-item" onclick="switchTab(&#39;export&#39;)" data-tab="export"><span class="bn-icon">📊</span>集計・出力</div>
 </nav>
 
@@ -462,7 +473,7 @@ function switchTab(t){
   document.getElementById('tab-'+t).classList.add('active');
   document.getElementById('topbar-title').textContent=TAB_TITLES[t];
   window.scrollTo(0,0);
-  if(t==='purchase')renderPurchase();
+  if(t==='purchase'){renderPurchase();setTimeout(initMonthSelector,50);}
   if(t==='export')renderExport();
 }
 
@@ -518,12 +529,27 @@ async function saveMonth(m){
 }
 function cloneMonth(mIdx){return JSON.parse(JSON.stringify(window._months[mIdx]));}
 
+function initMonthSelector(){
+  const yearSel=document.getElementById('add-year');
+  if(!yearSel||yearSel.options.length>0)return;
+  const now=new Date();
+  for(let y=now.getFullYear()-2;y<=now.getFullYear()+3;y++){
+    const opt=document.createElement('option');
+    opt.value=y;opt.textContent=y+'年';
+    if(y===now.getFullYear())opt.selected=true;
+    yearSel.appendChild(opt);
+  }
+  // 今月を初期選択
+  document.getElementById('add-month').value=now.getMonth()+1;
+}
+
 async function addMonth(){
-  const ms=window._months;
-  let year,month;
-  if(!ms.length){const n=new Date();year=n.getFullYear();month=n.getMonth()+1;}
-  else{const last=ms[ms.length-1];month=last.month+1;year=last.year;if(month>12){month=1;year++;}}
-  if(ms.find(m=>m.year===year&&m.month===month))return;
+  initMonthSelector();
+  const year=parseInt(document.getElementById('add-year').value);
+  const month=parseInt(document.getElementById('add-month').value);
+  if(window._months.find(m=>m.year===year&&m.month===month)){
+    toast(`${year}年${month}月はすでに追加されています`);return;
+  }
   await saveMonth({year,month,rounds:[{id:Date.now(),roundSeq:1,rate:'',items:[]}]});
   toast(`${year}年${month}月を追加しました`);
 }
