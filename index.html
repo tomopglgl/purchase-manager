@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)file:///C:/Users/tomoo/Downloads/index_2.html -->
+<!-- saved from url=(0045)file:///C:/Users/tomoo/Downloads/index_3.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>仕入れ管理</title>
-<link href="./index_files/css2" rel="stylesheet">
-<script src="./index_files/xlsx.full.min.js.ダウンロード"></script>
+<link href="./仕入れ管理_files/css2" rel="stylesheet">
+<script src="./仕入れ管理_files/xlsx.full.min.js.ダウンロード"></script>
 <style>
 :root{
   --bg:#0e0f11;--bg2:#16181c;--bg3:#1e2128;--bg4:#252830;
@@ -228,7 +228,7 @@ input[type=number]{font-family:var(--mono)}
 <!-- 画像モーダル -->
 <div class="img-modal" id="img-modal" style="display:none" onclick="closeImgModal()">
   <span class="img-modal-close">✕</span>
-  <img id="img-modal-img" src="file:///C:/Users/tomoo/Downloads/index_2.html" onclick="event.stopPropagation()">
+  <img id="img-modal-img" src="file:///C:/Users/tomoo/Downloads/index_3.html" onclick="event.stopPropagation()">
 </div>
 
 <div class="layout">
@@ -239,8 +239,8 @@ input[type=number]{font-family:var(--mono)}
       <p>Purchase Manager</p>
     </div>
     <nav>
-      <div class="nav-item" onclick="switchTab(&#39;products&#39;)" data-tab="products"><span class="nav-icon">🗂</span> 商品登録</div>
-      <div class="nav-item active" onclick="switchTab(&#39;purchase&#39;)" data-tab="purchase"><span class="nav-icon">📋</span> 月別仕入れ</div>
+      <div class="nav-item active" onclick="switchTab(&#39;products&#39;)" data-tab="products"><span class="nav-icon">🗂</span> 商品登録</div>
+      <div class="nav-item" onclick="switchTab(&#39;purchase&#39;)" data-tab="purchase"><span class="nav-icon">📋</span> 月別仕入れ</div>
       <div class="nav-item" onclick="switchTab(&#39;export&#39;)" data-tab="export"><span class="nav-icon">📊</span> 集計・出力</div>
     </nav>
     <div class="sidebar-bottom">
@@ -250,13 +250,13 @@ input[type=number]{font-family:var(--mono)}
 
   <div class="main">
     <div class="topbar">
-      <span class="topbar-title" id="topbar-title">月別仕入れ計算</span>
+      <span class="topbar-title" id="topbar-title">商品登録</span>
       <span id="topbar-sync" style="font-size:12px;margin-left:auto"><span style="color:var(--green)">🟢 同期中</span></span>
     </div>
     <div class="content">
 
       <!-- 商品登録 -->
-      <div id="tab-products" class="panel">
+      <div id="tab-products" class="panel active">
         <div class="page-header"><h2>商品登録</h2><p>仕入れ計算で使用する商品を登録します</p></div>
         <div class="card">
           <div class="card-header"><span class="card-title">新規登録</span></div>
@@ -292,7 +292,7 @@ input[type=number]{font-family:var(--mono)}
       </div>
 
       <!-- 月別仕入れ -->
-      <div id="tab-purchase" class="panel active">
+      <div id="tab-purchase" class="panel">
         <div class="page-header"><h2>月別仕入れ計算</h2><p>月・回次・品の3階層で仕入れを管理します</p></div>
         <div id="purchase-area"><div class="empty" style="padding:48px"><div class="empty-icon">📅</div>「＋ 仕入れ月追加」で月を追加してください</div></div>
         <div class="add-month-bar">
@@ -312,7 +312,10 @@ input[type=number]{font-family:var(--mono)}
       <!-- 集計・出力 -->
       <div id="tab-export" class="panel">
         <div class="page-header"><h2>集計・出力</h2><p>月別・回次別の集計とExcelエクスポート</p></div>
-        <div class="summary-grid" id="summary-cards"></div>
+        <div class="summary-grid" id="summary-cards">
+    <div class="metric-card"><div class="metric-label">登録商品数</div><div class="metric-value">0</div><div class="metric-sub">商品マスタ</div></div>
+    <div class="metric-card"><div class="metric-label">累計仕入れ金額</div><div class="metric-value">¥0</div><div class="metric-sub">全期間合計</div></div>
+    <div class="metric-card"><div class="metric-label">月平均</div><div class="metric-value">¥0</div><div class="metric-sub">0 ヶ月分</div></div></div>
         <div class="card">
           <div class="card-header">
             <span class="card-title">月別・回次別集計</span>
@@ -328,7 +331,7 @@ input[type=number]{font-family:var(--mono)}
                 <th style="padding:8px 10px;text-align:right;font-size:11px;font-weight:500;color:var(--text3);border-bottom:1px solid var(--border);background:var(--bg3);white-space:nowrap">回次合計</th>
                 <th style="padding:8px 10px;text-align:right;font-size:11px;font-weight:500;color:var(--text3);border-bottom:1px solid var(--border);background:var(--bg3);white-space:nowrap">月合計</th>
               </tr></thead>
-              <tbody id="detail-tbody"></tbody>
+              <tbody id="detail-tbody"><tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text3)">データがありません</td></tr></tbody>
             </table>
           </div>
         </div>
@@ -338,10 +341,10 @@ input[type=number]{font-family:var(--mono)}
   </div>
 </div>
 
-<div class="toast" id="toast">2025年3月を削除しました</div>
+<div class="toast" id="toast"></div>
 <nav class="bottom-nav">
-  <div class="bottom-nav-item" onclick="switchTab(&#39;products&#39;)" data-tab="products"><span class="bn-icon">🗂</span>商品登録</div>
-  <div class="bottom-nav-item active" onclick="switchTab(&#39;purchase&#39;)" data-tab="purchase"><span class="bn-icon">📋</span>月別仕入れ</div>
+  <div class="bottom-nav-item active" onclick="switchTab(&#39;products&#39;)" data-tab="products"><span class="bn-icon">🗂</span>商品登録</div>
+  <div class="bottom-nav-item" onclick="switchTab(&#39;purchase&#39;)" data-tab="purchase"><span class="bn-icon">📋</span>月別仕入れ</div>
   <div class="bottom-nav-item" onclick="switchTab(&#39;export&#39;)" data-tab="export"><span class="bn-icon">📊</span>集計・出力</div>
 </nav>
 
